@@ -18,11 +18,14 @@ class ApplicationController < Sinatra::Base
   post '/signup' do 
     #binding.pry
     @user = User.create(username: params["username"], email: params["email"], password: params["password"])
-
-    if !params
     @user.save
+
+    if params["username"].empty? || params["email"].empty? || params["password"].empty?
+      redirect "/signup"
+    else
+      redirect "/tweets"
+    end
     
-    redirect "/tweets"
   end
 
 end
