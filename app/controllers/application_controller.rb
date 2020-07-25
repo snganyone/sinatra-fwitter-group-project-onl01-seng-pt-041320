@@ -15,4 +15,12 @@ class ApplicationController < Sinatra::Base
     erb :'/users/create_user'
   end
 
+  post '/signup' do 
+    binding.pry
+    @user = User.create(username: params["username"], email: params["email"], password: params["password"])
+    @user.save
+    
+    redirect "/tweets/#{@user.id}"
+  end
+
 end
